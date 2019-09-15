@@ -2,8 +2,7 @@
 
 import { app, protocol, BrowserWindow, Menu, Tray } from 'electron';
 import {
-    createProtocol,
-    installVueDevtools
+    createProtocol
 } from 'vue-cli-plugin-electron-builder/lib';
 
 // import { autoUpdater } from 'electron-updater'
@@ -22,13 +21,13 @@ let tray = null;
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
 
-function createWindow () {
+function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        height: 578,
+        height: 650,
         useContentSize: true,
         width: 870,
-        minHeight: 578, // 窗体最小高度
+        minHeight: 650, // 窗体最小高度
         minWidth: 870, // 窗体最小高度
         frame: true,
         transparent: false,
@@ -71,7 +70,7 @@ app.on('activate', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
+app.on('ready', async() => {
     if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     // Devtools extensions are broken in Electron 6.0.0 and greater
@@ -135,7 +134,7 @@ app.on('ready', async () => {
                 submenu: [
                     {
                         label: 'Electron官网',
-                        click: async () => {
+                        click: async() => {
                             const { shell } = require('electron');
 
                             await shell.openExternal('https://electronjs.org');

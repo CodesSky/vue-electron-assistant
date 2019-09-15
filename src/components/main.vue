@@ -70,11 +70,13 @@
                             placeholder="请填写跳转链接">
                     <template slot="prepend">
                       <el-button type="primary"
+                                    size="mini"
                                  @click=" element.editable = !element.editable ">{{ element.editable ? '保存' : '编辑' }}</el-button>
                     </template>
                   </el-input>
                   <el-button slot="reference"
                              style="float: right;"
+                             size="mini"
                              circle
                              icon="el-icon-edit"></el-button>
                 </el-popover>
@@ -83,6 +85,7 @@
                 </el-switch>
                 <el-button type="danger"
                            icon="el-icon-delete"
+                           size="mini"
                            plain
                            @click="handleDelete(index)"></el-button>
               </div>
@@ -351,8 +354,8 @@ export default {
 .container {
   display: flex;
   height:100vh;
-  min-height: 578px;
   overflow: hidden;
+
   .layout-sidebar {
     flex: 0 0 68px;
     height: 100%;

@@ -6,10 +6,10 @@ module.exports = {
         parser: 'babel-eslint'
     },
     globals: {
-        'jsData': true,
-        '$http': true,
-        'TCYWXPAYSDK': true,
-        '__webpack_public_path__':true
+        jsData: true,
+        $http: true,
+        TCYWXPAYSDK: true,
+        __webpack_public_path__: true
     },
     env: {
         browser: true
@@ -51,18 +51,18 @@ module.exports = {
         'valid-typeof': 2, //用合法的字符串跟 typeof 进行比较操作
         /*最佳实践*/
         'accessor-pairs': 2, //强制 getter 和 setter 在对象中成对出现
-        curly: [2, 'multi-line'], //强制所有控制语句使用一致的括号风格
-        eqeqeq: 2, //要求使用 === 和 !==
+        'curly': [2, 'multi-line'], //强制所有控制语句使用一致的括号风格
+        'eqeqeq': 2, //要求使用 === 和 !==
         // 'no-alert': 2, //禁用 Alert
         'no-eval': 2, //禁用 eval()
         'no-self-assign': 2, //禁止自我赋值
-        semi: [2, 'always'], //要求使用分号
-        quotes: [
+        'semi': [2, 'always'], //要求使用分号
+        'quotes': [
             2,
             'single',
-            {avoidEscape: true, allowTemplateLiterals: true}
+            { avoidEscape: true, allowTemplateLiterals: true }
         ], //强制使用一致的单引号
-        'key-spacing': [2, {beforeColon: false, afterColon: true}], //禁止在对象字面量的键和值之间存在空格
+        'key-spacing': [2, { beforeColon: false, afterColon: true }], //禁止在对象字面量的键和值之间存在空格
         'no-mixed-spaces-and-tabs': 2, //禁止使用空格和tab
         'no-useless-escape': 0, //禁用不必要的转义字符
         'no-useless-call': 2, //避免不必要的.call() 和.apply()
@@ -90,10 +90,10 @@ module.exports = {
         'no-use-before-define': 2, //禁止在变量定义之前使用它们
         'no-delete-var': 2, //禁止删除变量
         /*Stylistic Issues*/
-        'brace-style': [2, '1tbs', {allowSingleLine: true}], //强制在代码块中使用一致的大括号风格 允许块的开括号和闭括号在 同一行
+        'brace-style': [2, '1tbs', { allowSingleLine: true }], //强制在代码块中使用一致的大括号风格 允许块的开括号和闭括号在 同一行
         'block-scoped-var': 0, //强制把变量的使用限制在其定义的作用域范围内
         'one-var': [2, 'never'], //强制函数中的变量分开声明
-        camelcase: [2, {properties: 'always'}], //强制使用骆驼拼写法命名约定 强制属性名称为驼峰风格
+        'camelcase': [2, { properties: 'always' }], //强制使用骆驼拼写法命名约定 强制属性名称为驼峰风格
         'space-before-function-paren': [
             2,
             {
@@ -104,25 +104,22 @@ module.exports = {
             }
         ],
         'comma-dangle': [2, 'never'], //禁止使用拖尾逗号
-        'indent': [2, 4, {SwitchCase: 1}], //强制使用一致的缩进 目前缩进4个空格
+        'indent': [2, 4, { SwitchCase: 1 }], //强制使用一致的缩进 目前缩进4个空格
         'padded-blocks': [2, 'never'], //代码块中避免多余留白
         'eol-last': 2, //要求文件末尾存在空行
         'no-tabs': 2, //不要使用制表符
         'keyword-spacing': 2, //强制在关键字前后使用一致的空格
         'array-bracket-spacing': [2, 'never'], //禁止在数组方括号内有空格
         'block-spacing': [2, 'never'], //禁止在单行代码块中使用空格
-        'comma-spacing': [2, {before: false, after: true}], //逗号后面有空格，前面无空格
+        'comma-spacing': [2, { before: false, after: true }], //逗号后面有空格，前面无空格
         'space-in-parens': 2, //禁止圆括号内的空格
         'max-params': [2, 4], //限制函数定义中最大参数个数
         'max-statements': [2, 50], //限制函数块中的语句的最大数量
         'quote-props': [2, 'consistent-as-needed'], //如果有属性名称要求使用引号，则所有的属性名称都要使用引号；否则，禁止所有的属性名称使用引号
         'dot-location': [2, 'property'], //强制在点号之前或之后换行 表达式中的点号操作符应该和属性在同一行
-        'new-cap': [2, {newIsCap: true, capIsNew: false}], //要求构造函数首字母大写
+        'new-cap': [2, { newIsCap: true, capIsNew: false }], //要求构造函数首字母大写
         'new-parens': 2, //要求调用无参构造函数时有圆括号
         'func-names': 0, //要求或禁止使用命名的 function 表达式
-        //'func-style': 2, //强制一致地使用 function 声明或表达式
-        //"space-before-blocks": [0, "always"],//不以新行开始的块{前面要不要有空格
-        'space-before-function-paren': [0, 'never'],
         'newline-after-var': [2, 'always'], //要求变量声明语句后有一行空行
         'no-array-constructor': 2, //使用数组字面量而不是构造器
         'no-caller': 2, //禁用 arguments.caller 或 arguments.callee
@@ -142,7 +139,7 @@ module.exports = {
         'space-infix-ops': 2, //**字符串拼接操作符（Infix operators）**之间要留空格
         'space-unary-ops': 0, //一元运算符后面跟一个空格
         'wrap-iife': 2, //自调用匿名函数 (IIFEs) 需要使用括号包裹
-        yoda: 0, //请书写优雅的条件语句
+        'yoda': 0, //请书写优雅的条件语句
         /*ECMAScript 6*/
         'arrow-parens': 0,
         'no-class-assign': 2, //禁止修改类声明的变量
@@ -165,6 +162,6 @@ module.exports = {
 
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-        complexity: ['error', 6]
+        'complexity': ['error', 6]
     }
 };

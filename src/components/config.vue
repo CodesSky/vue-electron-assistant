@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <template v-for="(item,index) of EntryList">
-            <el-card shadow="always" :class="item.websiteBg" v-if="item.visiable" :key="index">
+            <el-card shadow="always" class="card-item" v-if="item.visiable" :key="index">
                 <div slot="header" class="clearfix">
                     <span>{{item.websiteName}}</span>
                 </div>
@@ -32,15 +32,17 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    align-content: flex-start;
 
-    .el-card {
-        margin: 20px;
+    .card-item {
+        margin: 10px 10px 10px 10px;
         width: 150px;
+        height: 150px;
+        border-radius: 10px;
+        text-align: center;
 
         a {
             text-decoration: none;

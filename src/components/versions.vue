@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             versionList: [
                 {
@@ -47,8 +47,18 @@ export default {
                     ③element-ui到2.12.0版本;
                     ④更换了应用字体，反正就是好看了😁;
                     ⑤更改mac版本顶部栏的快捷图标;
+                    ⑥打包windows版本并且优化window版本的滚动条
                     `,
                     timestamp: '2019-09-15 12:00',
+                    size: 'large',
+                    type: 'primary',
+                    icon: 'el-icon-s-tools'
+                },
+                {
+                    content: `version: 1.1.1
+                    打包windows版本并且优化window版本的滚动条,优化导航页的卡片展示
+                    `,
+                    timestamp: '2019-09-15 21:50',
                     size: 'large',
                     type: 'primary',
                     icon: 'el-icon-s-tools'
