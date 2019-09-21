@@ -16,7 +16,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
-let tray = null;
+const tray = null;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
@@ -86,65 +86,65 @@ app.on('ready', async() => {
 
     }
     if (process.platform === 'darwin') {
-        tray = new Tray('/Users/longyao/development/electron-vue-v5/vue-electron-assistant/src/assets/assistant.png');
-        const contextMenu = Menu.buildFromTemplate([
-            {
-                label: '刷新',
-                role: 'reload'
-            },
-            {
-                label: '强制刷新',
-                role: 'forcereload'
-            },
-            {
-                label: '隐藏其他',
-                role: 'hideothers'
-            },
-            {
-                label: '自定义',
-                role: 'unhide'
-            },
-            {
-                label: '最小化',
-                accelerator: 'CmdOrCtrl+M',
-                role: 'minimize'
-            },
-            {
-                role: 'zoomin',
-                label: '放大'
-            },
-            {
-                role: 'zoomout',
-                label: '缩小'
-            },
-            {
-                label: '全屏',
-                role: 'togglefullscreen'
-            },
-            {
-                label: '工具栏',
-                role: 'toggledevtools'
-            },
-            {
-                label: '关于',
-                role: 'about'
-            },
-            {
-                role: 'help',
-                submenu: [
-                    {
-                        label: 'Electron官网',
-                        click: async() => {
-                            const { shell } = require('electron');
+        // tray = new Tray('/Users/longyao/development/electron-vue-v6/vue-electron-assistant/src/assets/assistant.png');
+        // const contextMenu = Menu.buildFromTemplate([
+        //     {
+        //         label: '刷新',
+        //         role: 'reload'
+        //     },
+        //     {
+        //         label: '强制刷新',
+        //         role: 'forcereload'
+        //     },
+        //     {
+        //         label: '隐藏其他',
+        //         role: 'hideothers'
+        //     },
+        //     {
+        //         label: '自定义',
+        //         role: 'unhide'
+        //     },
+        //     {
+        //         label: '最小化',
+        //         accelerator: 'CmdOrCtrl+M',
+        //         role: 'minimize'
+        //     },
+        //     {
+        //         role: 'zoomin',
+        //         label: '放大'
+        //     },
+        //     {
+        //         role: 'zoomout',
+        //         label: '缩小'
+        //     },
+        //     {
+        //         label: '全屏',
+        //         role: 'togglefullscreen'
+        //     },
+        //     {
+        //         label: '工具栏',
+        //         role: 'toggledevtools'
+        //     },
+        //     {
+        //         label: '关于',
+        //         role: 'about'
+        //     },
+        //     {
+        //         role: 'help',
+        //         submenu: [
+        //             {
+        //                 label: 'Electron官网',
+        //                 click: async() => {
+        //                     const { shell } = require('electron');
 
-                            await shell.openExternal('https://electronjs.org');
-                        }
-                    }
-                ] }
-        ]);
+        //                     await shell.openExternal('https://electronjs.org');
+        //                 }
+        //             }
+        //         ] }
+        // ]);
 
-        tray.setToolTip('Powerful');
-        tray.setContextMenu(contextMenu);
+        // tray.setToolTip('Powerful');
+        // tray.setContextMenu(contextMenu);
     }
     createWindow();
 });

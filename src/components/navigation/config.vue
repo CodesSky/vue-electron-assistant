@@ -56,12 +56,10 @@ export default {
     }
 
     .element-bg {
-        background-image: url('../assets/element.png');
         background-size: 100% 100%;
     }
 
     .gitblit-bg {
-        background-image: url('../assets/gitblit-bg.png');
         background-size: 100% 100%;
     }
 }

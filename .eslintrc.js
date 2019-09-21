@@ -107,7 +107,7 @@ module.exports = {
         'indent': [2, 4, { SwitchCase: 1 }], //强制使用一致的缩进 目前缩进4个空格
         'padded-blocks': [2, 'never'], //代码块中避免多余留白
         'eol-last': 2, //要求文件末尾存在空行
-        'no-tabs': 2, //不要使用制表符
+        'no-tabs': 0, //不要使用制表符
         'keyword-spacing': 2, //强制在关键字前后使用一致的空格
         'array-bracket-spacing': [2, 'never'], //禁止在数组方括号内有空格
         'block-spacing': [2, 'never'], //禁止在单行代码块中使用空格

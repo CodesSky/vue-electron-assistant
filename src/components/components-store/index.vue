@@ -1,13 +1,24 @@
 <template>
-    <div>
-        <h2>组件库</h2>
-    </div>
+  <div class="components-container">
+    <topbar header-title="组件库"></topbar>
+  </div>
 </template>
 
 <script>
-export default {};
+import Topbar from '@/components/layout/topbar.vue';
+export default {
+    components: {
+        Topbar
+    },
+    data() {
+        return {
+            key: ''
+        };
+    }
+};
 </script>
 
 <style lang="scss" scoped>
-
+.components-container {
+}
 </style>

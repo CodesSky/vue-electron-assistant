@@ -1,8 +1,8 @@
 {
   "name": "work-assistant",
-  "author": "huly",
   "version": "1.1.1",
   "private": true,
+  "author": "huly",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -15,6 +15,8 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "element-ui": "2.12.0",
+    "gojs": "^2.0.16",
+    "mavon-editor": "^2.7.6",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuedraggable": "^2.23.0",
@@ -25,12 +27,14 @@
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "@vue/eslint-config-standard": "^4.0.0",
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "electron": "^6.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
+    "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-electron-builder": "^1.4.0",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.10"
