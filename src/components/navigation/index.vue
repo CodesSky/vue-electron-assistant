@@ -1,81 +1,127 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 <template>
-  <div class="navigation-container">
-    <div class="navigation-topbar">
-      <h3 class="title">传送门</h3>
-      <div class="module"></div>
-      <el-button type="text"
-                 icon="el-icon-setting"
-                 size="small"
-                 class="setting-btn"
-                 @click="() => {this.drawer = true}"
-                 circle></el-button>
-    </div>
-    <config class="content-item"
-            :entry-list="EntryList"></config>
-    <el-drawer title="设置"
-               size="300px"
-               :visible.sync="drawer"
-               direction="rtl"
-               :before-close="() => { this.drawer = false }">
-      <div class="config-part demo-drawer__content">
-        <el-form>
-          <el-form-item label=""
-                        label-width="120">
-            <draggable :list="EntryList"
-                       class="list-group"
-                       ghost-class="ghost"
-                       @start="dragging = true"
-                       @end="dragging = false">
-              <div class="list-group-item"
-                   v-for="(element,index) in EntryList"
-                   :key="element.websiteName">
-                <el-tag size="small"
-                        class="tag-title"
-                        effect="dark">{{ element.websiteName }}</el-tag>
-                <el-popover placement="right"
-                            width="400"
-                            trigger="click">
-                  <el-input v-model="element.websiteUrl"
-                            :disabled="!element.editable"
-                            placeholder="请填写跳转链接">
-                    <template slot="prepend">
-                      <el-button type="primary"
-                                 size="mini"
-                                 plain
-                                 @click=" element.editable = !element.editable ">{{ element.editable ? '保存' : '编辑' }}</el-button>
-                    </template>
-                  </el-input>
-                  <el-button slot="reference"
-                             size="mini"
-                             class="tag-edit"
-                             circle
-                             icon="el-icon-edit"></el-button>
-                </el-popover>
-                <el-switch class="tag-switch"
-                           v-model="element.visiable"></el-switch>
-                <el-button type="danger"
-                           icon="el-icon-delete"
-                           size="mini"
-                           class="tag-delete"
-                           plain
-                           @click="handleDelete(index)"></el-button>
-              </div>
-            </draggable>
-          </el-form-item>
-        </el-form>
-        <div class="demo-drawer__footer"
-             style="text-align:center;">
-          <el-button type="primary"
-                     plain
-                     class="btn"
-                     @click="handleAddShortcut">添加</el-button>
-          <el-button type="primary"
-                     class="btn"
-                     @click="handleSaveSetting">保存</el-button>
-        </div>
-      </div>
-    </el-drawer>
-  </div>
+	<div class="navigation-container">
+		<div class="navigation-topbar">
+			<h3 class="title">传送门</h3>
+			<div class="module"></div>
+			<el-button
+				type="text"
+				icon="el-icon-setting"
+				size="small"
+				class="setting-btn"
+				@click="
+					() => {
+						this.drawer = true;
+					}
+				"
+				circle
+			></el-button>
+		</div>
+		<config class="content-item" :entry-list="EntryList"></config>
+		<el-drawer
+			title="设置"
+			size="320px"
+			:visible.sync="drawer"
+			direction="rtl"
+			:before-close="
+				() => {
+					this.drawer = false;
+				}
+			"
+		>
+		<div slot="title">
+			配置
+		</div>
+			<div class="config-part">
+				<el-form>
+					<el-form-item label="" label-width="120">
+						<draggable
+							:list="EntryList"
+							class="list-group"
+							ghost-class="ghost"
+							@start="dragging = true"
+							@end="dragging = false"
+						>
+							<div
+								class="list-group-item"
+								v-for="(element, index) in EntryList"
+								:key="element.websiteName"
+							>
+								<el-row>
+									<el-col :span="20">
+										<span>
+											<strong style="text-align:left;padding-left:5px;">
+												{{ element.websiteName }}
+											</strong>
+										</span>
+
+									</el-col>
+									<el-col :span="4">
+										<el-popover
+											placement="right"
+											width="400"
+											trigger="click"
+										>
+											<el-input
+												v-model="element.websiteUrl"
+												:disabled="!element.editable"
+												placeholder="请填写跳转链接"
+											>
+												<template slot="prepend">
+													<el-button
+														type="primary"
+														plain
+														@click="
+															element.editable = !element.editable
+														"
+														>{{
+															element.editable
+																? "保存"
+																: "编辑"
+														}}</el-button
+													>
+												</template>
+											</el-input>
+											<el-button
+												slot="reference"
+												type="text"
+												icon="el-icon-edit"
+											></el-button>
+										</el-popover>
+										<el-button
+											type="text"
+											icon="el-icon-delete"
+											@click="handleDelete(index)"
+										></el-button>
+										<el-button
+											type="text"
+											:icon="`${element.visiable ? 'el-icon-open' : 'el-icon-turn-off'}`"
+											@click="handleSwitch(index)"
+										></el-button>
+									</el-col>
+								</el-row>
+							</div>
+						</draggable>
+					</el-form-item>
+				</el-form>
+				<div class="drawer-footer">
+					<el-button
+						type="primary"
+						plain
+						class="btn"
+						@click="handleAddShortcut"
+						>添加</el-button
+					>
+					<el-button
+						type="primary"
+						class="btn"
+						@click="handleSaveSetting"
+						>保存</el-button
+					>
+				</div>
+			</div>
+		</el-drawer>
+	</div>
 </template>
 
 <script>
@@ -94,7 +140,8 @@ export default {
                 {
                     id: 1,
                     websiteName: 'Dart',
-                    websiteUrl: 'http://webtest.tcy365.org:1505/dart/index.html#/log',
+                    websiteUrl:
+						'http://webtest.tcy365.org:1505/dart/index.html#/log',
                     websiteBg: 'dart-bg',
                     visiable: true,
                     editable: false
@@ -166,7 +213,7 @@ export default {
                     id: 9,
                     websiteName: 'ES6阮一峰',
                     websiteUrl:
-            'http://es6.ruanyifeng.com/?search=Array.of&x=0&y=0#docs/set-map',
+						'http://es6.ruanyifeng.com/?search=Array.of&x=0&y=0#docs/set-map',
                     websiteBg: 'es6-bg',
                     visiable: true,
                     editable: false
@@ -253,7 +300,8 @@ export default {
                 {
                     id: 20,
                     websiteName: '流程工作表',
-                    websiteUrl: 'http://webtest.tcy365.org:1505/P-WorkFlow/index.html#/',
+                    websiteUrl:
+						'http://webtest.tcy365.org:1505/P-WorkFlow/index.html#/',
                     websiteBg: 'flutter-bg',
                     visiable: true,
                     editable: false
@@ -261,7 +309,8 @@ export default {
                 {
                     id: 21,
                     websiteName: '自动化流程',
-                    websiteUrl: 'http://doc.uc108.org:8002/web/#/168?page_id=5084',
+                    websiteUrl:
+						'http://doc.uc108.org:8002/web/#/168?page_id=5084',
                     websiteBg: 'flutter-bg',
                     visiable: true,
                     editable: false
@@ -270,6 +319,9 @@ export default {
         };
     },
     methods: {
+        handleSwitch(index) {
+            this.EntryList[index].visiable = !this.EntryList[index].visiable;
+        },
         handleAddShortcut() {
             const item = {
                 websiteName: '自定义',
@@ -284,8 +336,12 @@ export default {
         handleSaveSetting() {
             if (localStorage.getItem('entryConfigList')) {
                 localStorage.removeItem('entryConfigList');
-                localStorage.setItem('entryConfigList', JSON.stringify(this.EntryList));
+                localStorage.setItem(
+                    'entryConfigList',
+                    JSON.stringify(this.EntryList)
+                );
             }
+            this.drawer = false;
         },
         handleDelete(index) {
             this.$confirm(
@@ -318,90 +374,89 @@ export default {
 
 <style lang="scss" scoped>
 .navigation-container {
-  .navigation-topbar {
-    height: 60px;
-    padding: 0 5px;
-    border-bottom: 0.5px solid #e0e0e0;
-    background: #ffffff;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    .title {
-      flex: 0.1;
-      text-align: left;
-      padding-left: 15px;
-    }
+	/deep/ .el-drawer__header {
+		margin-bottom: 10px;
+		padding: 0 20px 0;
+	}
+	/deep/ .el-drawer__body {
+		overflow-y: auto;
+	}
+	/deep/ .el-button+.el-button {
+		margin-left: 0;
+	}
+	.navigation-topbar {
+		height: 60px;
+		padding: 0 5px;
+		border-bottom: 0.5px solid #e0e0e0;
+		background: #ffffff;
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: row;
+		align-items: center;
+		text-align: center;
+		.title {
+			flex: 0.1;
+			text-align: left;
+			padding-left: 15px;
+		}
 
-    .module {
-      flex: 0.6;
-    }
-    .setting-btn {
-      flex: 0.3;
-      position: fixed;
-      right: 5px;
-      z-index: 1;
-    }
-  }
-  .content-item {
-    height: 100vh;
-    overflow-y: auto;
-  }
+		.module {
+			flex: 0.6;
+		}
+		.setting-btn {
+			flex: 0.3;
+			position: fixed;
+			right: 5px;
+			z-index: 1;
+		}
+	}
+	.content-item {
+		height: 100vh;
+		overflow-y: auto;
+	}
 
-  .flip-list-move {
-    transition: transform 0.5s;
-  }
+	.flip-list-move {
+		transition: transform 0.5s;
+	}
 
-  .no-move {
-    transition: transform 0s;
-  }
+	.no-move {
+		transition: transform 0s;
+	}
 
-  .ghost {
-    opacity: 0.5;
-    background: #c8ebfb;
-  }
+	.ghost {
+		opacity: 0.5;
+		background: #c8ebfb;
+	}
 
-  .list-group {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    .list-group-item {
-      width: 300px;
-      height: 30px;
-      display: flex;
-      justify-content: space-around;
-      align-content: center;
-      background-color: #c8ebfb;
-      margin-bottom: 5px;
-      cursor: move;
-      .tag-title {
-        width: 75px;
-      }
-      .tag-edit {
-        width: 75px;
-      }
-      .tag-switch {
-        width: 75px;
-      }
-      .tag-delete {
-        width: 75px;
-      }
-    }
-  }
+	.list-group {
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		.list-group-item {
+			width: 300px;
+			height: 30px;
+			border-radius: 5px;
+			background-color: #c8ebfb;
+			margin-bottom: 5px;
+			cursor: move;
+		}
+	}
 
-  .config-part {
-    margin: 5px 10px;
-    .setting {
-      max-height: 600px;
-      overflow-y: scroll;
-    }
-    .operation {
-    }
-  }
+	.config-part {
+		margin: 5px 10px;
+		.drawer-footer {
+			text-align: center;
+			.btn {
+				margin-left: 10px;
+			}
+		}
+		.setting {
+			overflow-y: auto;
+		}
+	}
 
-  .list-group-item i {
-    cursor: pointer;
-  }
+	.list-group-item i {
+		cursor: pointer;
+	}
 }
 </style>

@@ -1,4 +1,4 @@
-// https://eslint.org/docs/user-guide/configuring
+/**eslint-disable */
 
 module.exports = {
     root: true,
@@ -63,7 +63,7 @@ module.exports = {
             { avoidEscape: true, allowTemplateLiterals: true }
         ], //强制使用一致的单引号
         'key-spacing': [2, { beforeColon: false, afterColon: true }], //禁止在对象字面量的键和值之间存在空格
-        'no-mixed-spaces-and-tabs': 2, //禁止使用空格和tab
+        'no-mixed-spaces-and-tabs': 0, //禁止使用空格和tab
         'no-useless-escape': 0, //禁用不必要的转义字符
         'no-useless-call': 2, //避免不必要的.call() 和.apply()
         'no-multiple-empty-lines': 2, //禁止出现多行空行
