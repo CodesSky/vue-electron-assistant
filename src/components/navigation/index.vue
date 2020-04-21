@@ -157,7 +157,7 @@ export default {
                 {
                     id: 3,
                     websiteName: 'ElementUI',
-                    websiteUrl: 'https://element.eleme.io/2.11/#/zh-CN',
+                    websiteUrl: 'https://element.eleme.cn/#/zh-CN',
                     websiteBg: 'element-bg',
                     visiable: true,
                     editable: false
