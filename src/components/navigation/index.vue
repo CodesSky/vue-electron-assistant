@@ -142,7 +142,6 @@ export default {
                     websiteName: 'Dart',
                     websiteUrl:
 						'http://webtest.tcy365.org:1505/dart/index.html#/log',
-                    websiteBg: 'dart-bg',
                     visiable: true,
                     editable: false
                 },
@@ -150,7 +149,6 @@ export default {
                     id: 2,
                     websiteName: 'OA',
                     websiteUrl: 'http://oa.ct108.com/#/login',
-                    websiteBg: 'oa-bg',
                     visiable: true,
                     editable: false
                 },
@@ -158,7 +156,6 @@ export default {
                     id: 3,
                     websiteName: 'ElementUI',
                     websiteUrl: 'https://element.eleme.cn/#/zh-CN',
-                    websiteBg: 'element-bg',
                     visiable: true,
                     editable: false
                 },
@@ -166,14 +163,12 @@ export default {
                     id: 4,
                     websiteName: 'Echarts',
                     websiteUrl: 'https://echarts.baidu.com/index.html',
-                    websiteBg: 'echarts-bg',
                     visiable: true,
                     editable: false
                 },
                 {
                     websiteName: 'GitLab',
                     websiteUrl: 'http://192.168.101.244/users/sign_in',
-                    websiteBg: 'gitlab-bg',
                     visiable: true,
                     editable: false
                 },
@@ -181,7 +176,6 @@ export default {
                     id: 5,
                     websiteName: 'GitBlit',
                     websiteUrl: 'http://192.168.1.146:8080/repositories/',
-                    websiteBg: 'gitblit-bg',
                     visiable: true,
                     editable: false
                 },
@@ -189,7 +183,6 @@ export default {
                     id: 6,
                     websiteName: 'Vue',
                     websiteUrl: 'https://cn.vuejs.org/',
-                    websiteBg: 'vue-bg',
                     visiable: true,
                     editable: false
                 },
@@ -197,7 +190,6 @@ export default {
                     id: 7,
                     websiteName: 'React',
                     websiteUrl: 'https://react.docschina.org/',
-                    websiteBg: 'react-bg',
                     visiable: true,
                     editable: false
                 },
@@ -205,7 +197,6 @@ export default {
                     id: 8,
                     websiteName: 'Angular',
                     websiteUrl: 'https://angular.cn/',
-                    websiteBg: 'angular-bg',
                     visiable: true,
                     editable: false
                 },
@@ -214,7 +205,6 @@ export default {
                     websiteName: 'ES6阮一峰',
                     websiteUrl:
 						'http://es6.ruanyifeng.com/?search=Array.of&x=0&y=0#docs/set-map',
-                    websiteBg: 'es6-bg',
                     visiable: true,
                     editable: false
                 },
@@ -222,7 +212,6 @@ export default {
                     id: 10,
                     websiteName: 'Vuex',
                     websiteUrl: 'https://vuex.vuejs.org/zh/guide/',
-                    websiteBg: 'vuex-bg',
                     visiable: true,
                     editable: false
                 },
@@ -230,7 +219,6 @@ export default {
                     id: 11,
                     websiteName: 'YAPI',
                     websiteUrl: 'http://yapi.tcy365.org:3000/group/166',
-                    websiteBg: 'yapi-bg',
                     visiable: true,
                     editable: false
                 },
@@ -238,7 +226,6 @@ export default {
                     id: 12,
                     websiteName: '禅道',
                     websiteUrl: 'http://192.168.1.50/zentao/my/',
-                    websiteBg: 'zentao-bg',
                     visiable: true,
                     editable: false
                 },
@@ -246,7 +233,6 @@ export default {
                     id: 13,
                     websiteName: 'Electron',
                     websiteUrl: 'https://electronjs.org/',
-                    websiteBg: 'electron-bg',
                     visiable: true,
                     editable: false
                 },
@@ -254,7 +240,6 @@ export default {
                     id: 14,
                     websiteName: 'ShowDoc',
                     websiteUrl: 'http://doc.uc108.org:8002/web/#/item/index',
-                    websiteBg: 'showdoc-bg',
                     visiable: true,
                     editable: false
                 },
@@ -262,14 +247,12 @@ export default {
                     id: 15,
                     websiteName: 'AntDesign',
                     websiteUrl: 'https://ant.design/index-cn',
-                    websiteBg: 'antdesign-bg',
                     visiable: true
                 },
                 {
                     id: 16,
                     websiteName: 'TypeScript',
                     websiteUrl: 'https://www.tslang.cn/',
-                    websiteBg: 'typescript-bg',
                     visiable: true,
                     editable: false
                 },
@@ -277,7 +260,6 @@ export default {
                     id: 17,
                     websiteName: 'React小书',
                     websiteUrl: 'http://huziketang.mangojuice.top/books/react/',
-                    websiteBg: 'reactbook-bg',
                     visiable: true,
                     editable: false
                 },
@@ -285,7 +267,6 @@ export default {
                     id: 18,
                     websiteName: 'Sass',
                     websiteUrl: 'https://www.sasscss.com/sass-guidelines/',
-                    websiteBg: 'sass-bg',
                     visiable: true,
                     editable: false
                 },
@@ -293,7 +274,6 @@ export default {
                     id: 19,
                     websiteName: 'Flutter',
                     websiteUrl: 'https://flutter.cn/docs',
-                    websiteBg: 'flutter-bg',
                     visiable: true,
                     editable: false
                 },
@@ -302,7 +282,6 @@ export default {
                     websiteName: '流程工作表',
                     websiteUrl:
 						'http://webtest.tcy365.org:1505/P-WorkFlow/index.html#/',
-                    websiteBg: 'flutter-bg',
                     visiable: true,
                     editable: false
                 },
@@ -311,7 +290,14 @@ export default {
                     websiteName: '自动化流程',
                     websiteUrl:
 						'http://doc.uc108.org:8002/web/#/168?page_id=5084',
-                    websiteBg: 'flutter-bg',
+                    visiable: true,
+                    editable: false
+                },
+                {
+                    id: 22,
+                    websiteName: '常用正则表达式 ',
+                    websiteUrl:
+						'https://www.json.cn/',
                     visiable: true,
                     editable: false
                 }
@@ -326,7 +312,6 @@ export default {
             const item = {
                 websiteName: '自定义',
                 websiteUrl: '',
-                websiteBg: '',
                 visiable: true,
                 editable: false
             };

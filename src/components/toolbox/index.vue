@@ -1,7 +1,7 @@
 <template>
-  <div class="toolbox-container">
-    <topbar header-title="工具箱"></topbar>
-  </div>
+	<div class="toolbox-container">
+		<topbar header-title="工具箱"> </topbar>
+	</div>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
     },
     data() {
         return {
-            key: ''
+            value: ''
         };
     }
 };
@@ -20,5 +20,6 @@ export default {
 
 <style lang="scss" scoped>
 .toolbox-container {
+
 }
 </style>

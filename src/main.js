@@ -7,6 +7,7 @@ import './plugins/element';
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 import gojs from 'gojs';
+
 // use
 Vue.use(mavonEditor);
 
