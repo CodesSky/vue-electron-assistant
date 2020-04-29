@@ -11,9 +11,7 @@
     "build:win": "vue-cli-service electron:build --windows",
     "build:mac": "vue-cli-service electron:build --macos",
     "build:linux": "vue-cli-service electron:build --linux",
-    "electron:serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "electron:serve": "vue-cli-service electron:serve"
   },
   "dependencies": {
     "core-js": "^3.6.5",

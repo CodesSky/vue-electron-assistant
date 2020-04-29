@@ -39,6 +39,7 @@ module.exports.controller = (app) => {
             editable: req.body.editable
         });
 
+        console.log('entry!!!!!', entry);
         entry.save((error, entry) => {
             if (error) {
                 console.log(error);

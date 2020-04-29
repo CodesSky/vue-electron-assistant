@@ -23,14 +23,51 @@
 			size="320px"
 			:visible.sync="drawer"
 			direction="rtl"
+			:show-close="false"
 			:before-close="
 				() => {
 					this.drawer = false;
 				}
 			"
 		>
-		<div slot="title">
+		<div slot="title" class="drawer-title">
 			配置
+			<el-button
+                type="primary"
+                round
+				icon="el-icon-plus"
+                @click="innerDrawer = true"
+                >添加</el-button>
+				<el-drawer
+					title="添加"
+					:append-to-body="true"
+					:wrapperClosable="false"
+					:visible.sync="innerDrawer">
+						<el-form :model="baseItem" ref="baseItem" size="mini" style="width:300px;" label-width="60px">
+							<el-form-item
+								label="简称"
+								prop="websiteName"
+								:rules="[
+									{ required: true, message: '名称必填'},
+								]"
+							>
+								<el-input type="text" v-model.trim="baseItem.websiteName" style="margin-right: 20px;" autocomplete="off"></el-input>
+							</el-form-item>
+							<el-form-item
+								label="URL"
+								prop="websiteUrl"
+								:rules="[
+									{ required: true, message: 'URL必填'},
+								]"
+							>
+								<el-input type="age" v-model.trim="baseItem.websiteUrl" autocomplete="off"></el-input>
+							</el-form-item>
+							<el-form-item>
+								<el-button type="primary" @click="submitForm('baseItem')">提交</el-button>
+								<el-button @click="resetForm('baseItem')">取消</el-button>
+							</el-form-item>
+						</el-form>
+				</el-drawer>
 		</div>
 			<div class="config-part">
 				<el-form>
@@ -124,21 +161,6 @@
 						</draggable>
 					</el-form-item>
 				</el-form>
-				<div class="drawer-footer">
-					<el-button
-						type="primary"
-						plain
-						class="btn"
-						@click="handleAddShortcut"
-						>添加</el-button
-					>
-					<el-button
-						type="primary"
-						class="btn"
-						@click="handleSaveSetting"
-						>保存</el-button
-					>
-				</div>
 			</div>
 		</el-drawer>
 	</div>
@@ -156,210 +178,52 @@ export default {
     data() {
         return {
             drawer: false,
-            // entryList: [
-            //     {
-            //         id: 1,
-            //         websiteName: 'Dart',
-            //         websiteUrl:
-            // 			'http://webtest.tcy365.org:1505/dart/index.html#/log',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 2,
-            //         websiteName: 'OA',
-            //         websiteUrl: 'http://oa.ct108.com/#/login',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 3,
-            //         websiteName: 'ElementUI',
-            //         websiteUrl: 'https://element.eleme.cn/#/zh-CN',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 4,
-            //         websiteName: 'Echarts',
-            //         websiteUrl: 'https://echarts.baidu.com/index.html',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         websiteName: 'GitLab',
-            //         websiteUrl: 'http://192.168.101.244/users/sign_in',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 5,
-            //         websiteName: 'GitBlit',
-            //         websiteUrl: 'http://192.168.1.146:8080/repositories/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 6,
-            //         websiteName: 'Vue',
-            //         websiteUrl: 'https://cn.vuejs.org/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 7,
-            //         websiteName: 'React',
-            //         websiteUrl: 'https://react.docschina.org/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 8,
-            //         websiteName: 'Angular',
-            //         websiteUrl: 'https://angular.cn/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 9,
-            //         websiteName: 'ES6阮一峰',
-            //         websiteUrl:
-            // 			'http://es6.ruanyifeng.com/?search=Array.of&x=0&y=0#docs/set-map',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 10,
-            //         websiteName: 'Vuex',
-            //         websiteUrl: 'https://vuex.vuejs.org/zh/guide/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 11,
-            //         websiteName: 'YAPI',
-            //         websiteUrl: 'http://yapi.tcy365.org:3000/group/166',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 12,
-            //         websiteName: '禅道',
-            //         websiteUrl: 'http://192.168.1.50/zentao/my/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 13,
-            //         websiteName: 'Electron',
-            //         websiteUrl: 'https://electronjs.org/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 14,
-            //         websiteName: 'ShowDoc',
-            //         websiteUrl: 'http://doc.uc108.org:8002/web/#/item/index',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 15,
-            //         websiteName: 'AntDesign',
-            //         websiteUrl: 'https://ant.design/index-cn',
-            //         visible: true
-            //     },
-            //     {
-            //         id: 16,
-            //         websiteName: 'TypeScript',
-            //         websiteUrl: 'https://www.tslang.cn/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 17,
-            //         websiteName: 'React小书',
-            //         websiteUrl: 'http://huziketang.mangojuice.top/books/react/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 18,
-            //         websiteName: 'Sass',
-            //         websiteUrl: 'https://www.sasscss.com/sass-guidelines/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 19,
-            //         websiteName: 'Flutter',
-            //         websiteUrl: 'https://flutter.cn/docs',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 20,
-            //         websiteName: '流程工作表',
-            //         websiteUrl:
-            // 			'http://webtest.tcy365.org:1505/P-WorkFlow/index.html#/',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 21,
-            //         websiteName: '自动化流程',
-            //         websiteUrl:
-            // 			'http://doc.uc108.org:8002/web/#/168?page_id=5084',
-            //         visible: true,
-            //         editable: false
-            //     },
-            //     {
-            //         id: 22,
-            //         websiteName: '常用正则表达式 ',
-            //         websiteUrl:
-            // 			'https://www.json.cn/',
-            //         visible: true,
-            //         editable: false
-            //     }
-            // ],
-            entryList: []
-        };
-    },
-    mounted() {
-        this.$axios.get('http://localhost:3000/entry').then(res => {
-            if (res.data.Code === 0) {
-                this.entryList = res.data.Data;
-            }
-        });
-    },
-    methods: {
-        handleSwitch(index) {
-            this.entryList[index].visible = !this.entryList[index].visible;
-        },
-        handleAddShortcut() {
-            const item = {
-                websiteName: '自定义',
+            innerDrawer: false,
+            entryList: [],
+            baseItem: {
+                websiteName: '',
                 websiteUrl: '',
                 visible: true,
                 editable: false
-            };
-
-            this.entryList.unshift(item);
-            // this.$axios.post('http://localhost:3000/entry', {
-            //     data: {
-            //         item: item
-            //     }
-            // });
-        },
-        handleSaveSetting() {
-            if (localStorage.getItem('entryConfigList')) {
-                localStorage.removeItem('entryConfigList');
-                localStorage.setItem(
-                    'entryConfigList',
-                    JSON.stringify(this.entryList)
-                );
             }
-            this.drawer = false;
+        };
+    },
+    mounted() {
+        this.getEntryList();
+    },
+    methods: {
+        getEntryList() {
+            this.$axios.get('http://localhost:3000/entry').then(res => {
+                if (res.data.Code === 0) {
+                    this.entryList = res.data.Data;
+                }
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+            this.innerDrawer = false;
+        },
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.handleAddShortcut();
+                } else {
+                    return false;
+                }
+            });
+        },
+        handleSwitch(index) {
+            this.entryList[index].visible = !this.entryList[index].visible;
+        },
+        // 添加便签
+        handleAddShortcut() {
+            this.$axios.post('http://localhost:3000/entry', {
+                ...this.baseItem
+            }).then(res => {
+                this.$message.success('添加成功');
+                this.innerDrawer = false;
+                this.getEntryList();
+            });
         },
         handleDelete(index) {
             this.$confirm(
@@ -394,13 +258,26 @@ export default {
 .navigation-container {
 	/deep/ .el-drawer__header {
 		margin-bottom: 10px;
-		padding: 0 20px 0;
+		padding: 10px 20px 0;
 	}
 	/deep/ .el-drawer__body {
 		overflow-y: auto;
 	}
 	/deep/ .el-button+.el-button {
 		margin-left: 0;
+	}
+	.drawer-title {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		/deep/.el-drawer .el-drawer__header {
+			margin-bottom: 10px;
+			padding: 10px 20px 0;
+		}
+		.inner-form {
+			width: 280px;
+			padding: 10px;
+		}
 	}
 	.navigation-topbar {
 		height: 60px;
@@ -466,6 +343,7 @@ export default {
 			text-align: center;
 			.btn {
 				margin-left: 10px;
+				float: right;
 			}
 		}
 		.setting {
