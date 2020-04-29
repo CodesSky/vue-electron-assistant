@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <template v-for="(item,index) of EntryList">
-            <el-card shadow="always" class="card-item" v-if="item.visiable" :key="index">
+            <el-card shadow="always" class="card-item" v-if="item.visible" :key="index">
                 <div slot="header" class="clearfix">
                     <span>{{item.websiteName}}</span>
                 </div>

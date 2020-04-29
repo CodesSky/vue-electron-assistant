@@ -7,9 +7,7 @@ module.exports.controller = (app) => {
             if (error) {
                 console.log(error);
             }
-            res.send({
-                users: users
-            });
+            res.send(users);
         });
         // res.render('index', {title: 'Users'});
     });

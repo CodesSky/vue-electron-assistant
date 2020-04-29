@@ -17,7 +17,7 @@
 				circle
 			></el-button>
 		</div>
-		<config class="content-item" :entry-list="EntryList"></config>
+		<config class="content-item" :entry-list="entryList"></config>
 		<el-drawer
 			title="设置"
 			size="320px"
@@ -36,7 +36,7 @@
 				<el-form>
 					<el-form-item label="" label-width="120">
 						<draggable
-							:list="EntryList"
+							:list="entryList"
 							class="list-group"
 							ghost-class="ghost"
 							@start="dragging = true"
@@ -44,7 +44,7 @@
 						>
 							<div
 								class="list-group-item"
-								v-for="(element, index) in EntryList"
+								v-for="(element, index) in entryList"
 								:key="element.websiteName"
 							>
 								<el-row>
@@ -62,6 +62,26 @@
 											width="400"
 											trigger="click"
 										>
+											<el-input
+												v-model="element.websiteName"
+												:disabled="!element.editable"
+												placeholder="请填写名称"
+											>
+												<template slot="prepend">
+													<el-button
+														type="primary"
+														plain
+														@click="
+															element.editable = !element.editable
+														"
+														>{{
+															element.editable
+																? "保存"
+																: "编辑"
+														}}</el-button
+													>
+												</template>
+											</el-input>
 											<el-input
 												v-model="element.websiteUrl"
 												:disabled="!element.editable"
@@ -95,7 +115,7 @@
 										></el-button>
 										<el-button
 											type="text"
-											:icon="`${element.visiable ? 'el-icon-open' : 'el-icon-turn-off'}`"
+											:icon="`${element.visible ? 'el-icon-open' : 'el-icon-turn-off'}`"
 											@click="handleSwitch(index)"
 										></el-button>
 									</el-col>
@@ -136,201 +156,214 @@ export default {
     data() {
         return {
             drawer: false,
-            EntryList: [
-                {
-                    id: 1,
-                    websiteName: 'Dart',
-                    websiteUrl:
-						'http://webtest.tcy365.org:1505/dart/index.html#/log',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 2,
-                    websiteName: 'OA',
-                    websiteUrl: 'http://oa.ct108.com/#/login',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 3,
-                    websiteName: 'ElementUI',
-                    websiteUrl: 'https://element.eleme.cn/#/zh-CN',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 4,
-                    websiteName: 'Echarts',
-                    websiteUrl: 'https://echarts.baidu.com/index.html',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    websiteName: 'GitLab',
-                    websiteUrl: 'http://192.168.101.244/users/sign_in',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 5,
-                    websiteName: 'GitBlit',
-                    websiteUrl: 'http://192.168.1.146:8080/repositories/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 6,
-                    websiteName: 'Vue',
-                    websiteUrl: 'https://cn.vuejs.org/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 7,
-                    websiteName: 'React',
-                    websiteUrl: 'https://react.docschina.org/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 8,
-                    websiteName: 'Angular',
-                    websiteUrl: 'https://angular.cn/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 9,
-                    websiteName: 'ES6阮一峰',
-                    websiteUrl:
-						'http://es6.ruanyifeng.com/?search=Array.of&x=0&y=0#docs/set-map',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 10,
-                    websiteName: 'Vuex',
-                    websiteUrl: 'https://vuex.vuejs.org/zh/guide/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 11,
-                    websiteName: 'YAPI',
-                    websiteUrl: 'http://yapi.tcy365.org:3000/group/166',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 12,
-                    websiteName: '禅道',
-                    websiteUrl: 'http://192.168.1.50/zentao/my/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 13,
-                    websiteName: 'Electron',
-                    websiteUrl: 'https://electronjs.org/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 14,
-                    websiteName: 'ShowDoc',
-                    websiteUrl: 'http://doc.uc108.org:8002/web/#/item/index',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 15,
-                    websiteName: 'AntDesign',
-                    websiteUrl: 'https://ant.design/index-cn',
-                    visiable: true
-                },
-                {
-                    id: 16,
-                    websiteName: 'TypeScript',
-                    websiteUrl: 'https://www.tslang.cn/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 17,
-                    websiteName: 'React小书',
-                    websiteUrl: 'http://huziketang.mangojuice.top/books/react/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 18,
-                    websiteName: 'Sass',
-                    websiteUrl: 'https://www.sasscss.com/sass-guidelines/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 19,
-                    websiteName: 'Flutter',
-                    websiteUrl: 'https://flutter.cn/docs',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 20,
-                    websiteName: '流程工作表',
-                    websiteUrl:
-						'http://webtest.tcy365.org:1505/P-WorkFlow/index.html#/',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 21,
-                    websiteName: '自动化流程',
-                    websiteUrl:
-						'http://doc.uc108.org:8002/web/#/168?page_id=5084',
-                    visiable: true,
-                    editable: false
-                },
-                {
-                    id: 22,
-                    websiteName: '常用正则表达式 ',
-                    websiteUrl:
-						'https://www.json.cn/',
-                    visiable: true,
-                    editable: false
-                }
-            ]
+            // entryList: [
+            //     {
+            //         id: 1,
+            //         websiteName: 'Dart',
+            //         websiteUrl:
+            // 			'http://webtest.tcy365.org:1505/dart/index.html#/log',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 2,
+            //         websiteName: 'OA',
+            //         websiteUrl: 'http://oa.ct108.com/#/login',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 3,
+            //         websiteName: 'ElementUI',
+            //         websiteUrl: 'https://element.eleme.cn/#/zh-CN',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 4,
+            //         websiteName: 'Echarts',
+            //         websiteUrl: 'https://echarts.baidu.com/index.html',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         websiteName: 'GitLab',
+            //         websiteUrl: 'http://192.168.101.244/users/sign_in',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 5,
+            //         websiteName: 'GitBlit',
+            //         websiteUrl: 'http://192.168.1.146:8080/repositories/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 6,
+            //         websiteName: 'Vue',
+            //         websiteUrl: 'https://cn.vuejs.org/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 7,
+            //         websiteName: 'React',
+            //         websiteUrl: 'https://react.docschina.org/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 8,
+            //         websiteName: 'Angular',
+            //         websiteUrl: 'https://angular.cn/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 9,
+            //         websiteName: 'ES6阮一峰',
+            //         websiteUrl:
+            // 			'http://es6.ruanyifeng.com/?search=Array.of&x=0&y=0#docs/set-map',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 10,
+            //         websiteName: 'Vuex',
+            //         websiteUrl: 'https://vuex.vuejs.org/zh/guide/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 11,
+            //         websiteName: 'YAPI',
+            //         websiteUrl: 'http://yapi.tcy365.org:3000/group/166',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 12,
+            //         websiteName: '禅道',
+            //         websiteUrl: 'http://192.168.1.50/zentao/my/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 13,
+            //         websiteName: 'Electron',
+            //         websiteUrl: 'https://electronjs.org/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 14,
+            //         websiteName: 'ShowDoc',
+            //         websiteUrl: 'http://doc.uc108.org:8002/web/#/item/index',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 15,
+            //         websiteName: 'AntDesign',
+            //         websiteUrl: 'https://ant.design/index-cn',
+            //         visible: true
+            //     },
+            //     {
+            //         id: 16,
+            //         websiteName: 'TypeScript',
+            //         websiteUrl: 'https://www.tslang.cn/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 17,
+            //         websiteName: 'React小书',
+            //         websiteUrl: 'http://huziketang.mangojuice.top/books/react/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 18,
+            //         websiteName: 'Sass',
+            //         websiteUrl: 'https://www.sasscss.com/sass-guidelines/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 19,
+            //         websiteName: 'Flutter',
+            //         websiteUrl: 'https://flutter.cn/docs',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 20,
+            //         websiteName: '流程工作表',
+            //         websiteUrl:
+            // 			'http://webtest.tcy365.org:1505/P-WorkFlow/index.html#/',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 21,
+            //         websiteName: '自动化流程',
+            //         websiteUrl:
+            // 			'http://doc.uc108.org:8002/web/#/168?page_id=5084',
+            //         visible: true,
+            //         editable: false
+            //     },
+            //     {
+            //         id: 22,
+            //         websiteName: '常用正则表达式 ',
+            //         websiteUrl:
+            // 			'https://www.json.cn/',
+            //         visible: true,
+            //         editable: false
+            //     }
+            // ],
+            entryList: []
         };
+    },
+    mounted() {
+        this.$axios.get('http://localhost:3000/entry').then(res => {
+            if (res.data.Code === 0) {
+                this.entryList = res.data.Data;
+            }
+        });
     },
     methods: {
         handleSwitch(index) {
-            this.EntryList[index].visiable = !this.EntryList[index].visiable;
+            this.entryList[index].visible = !this.entryList[index].visible;
         },
         handleAddShortcut() {
             const item = {
                 websiteName: '自定义',
                 websiteUrl: '',
-                visiable: true,
+                visible: true,
                 editable: false
             };
 
-            this.EntryList.unshift(item);
+            this.entryList.unshift(item);
+            // this.$axios.post('http://localhost:3000/entry', {
+            //     data: {
+            //         item: item
+            //     }
+            // });
         },
         handleSaveSetting() {
             if (localStorage.getItem('entryConfigList')) {
                 localStorage.removeItem('entryConfigList');
                 localStorage.setItem(
                     'entryConfigList',
-                    JSON.stringify(this.EntryList)
+                    JSON.stringify(this.entryList)
                 );
             }
             this.drawer = false;
         },
         handleDelete(index) {
             this.$confirm(
-                `此操作将永删除该配 ${this.EntryList[index].websiteName} 置项, 是否继续?`,
+                `此操作将永删除该配 ${this.entryList[index].websiteName} 置项, 是否继续?`,
                 '提示',
                 {
                     confirmButtonText: '确定',
@@ -340,7 +373,7 @@ export default {
                 }
             )
                 .then(() => {
-                    this.EntryList.splice(index, 1);
+                    this.entryList.splice(index, 1);
                     this.$message({
                         type: 'success',
                         message: '删除成功!'

@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors'); // 解决跨域
 var favicon = require('serve-favicon');
 var path = require('path');
 var logger = require('morgan');
@@ -8,7 +9,8 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-const DB_URL = 'mongodb://127.0.0.1:27017/express_first';
+const DB_URL = 'mongodb://127.0.0.1:27017/express_assistant';
+// const DB_URL = 'mongodb://127.0.0.1:27017/express_first';
 
 mongoose.connect(DB_URL, {
     useNewUrlParser: true,
@@ -26,6 +28,8 @@ var fs = require('file-system');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+// 解决跨域需要
+app.use(cors());
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -44,7 +48,6 @@ fs.readdirSync('controllers').forEach(file => {
     }
 });
 // catch 404 and forward to error handler
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
 
@@ -55,12 +58,27 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
+
+    // 解决跨域问题
+    res.header('Access-Control-Allow-Origin', ' * ');
+    res.header('Access-Control-Allow-Credentials', 'true');
+
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+});
+// express 解决跨域的设置
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+    res.header('X-Powered-By', '3.2.1');
+
+    if (req.method === 'PTIONS') res.send(200);
+    else next();
 });
 
 module.exports = app;
