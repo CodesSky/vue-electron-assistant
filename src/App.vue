@@ -20,7 +20,7 @@ export default {
 *::-webkit-scrollbar
   {
       width: 5px;
-      height: 16px;
+      height: 5px;
       background-color: #F5F5F5;
   }
 

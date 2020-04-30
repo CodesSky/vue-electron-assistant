@@ -15,6 +15,19 @@ module.exports.controller = (app) => {
         });
     });
 
+    app.get('/searchEntry/:id', (req, res) => {
+        Entry.findById(req.params.id, 'websiteName websiteUrl visible editable', function(error, entry) {
+            if (error) {console.log(error);} else {
+                console.log('get one', entry);
+                res.send({
+                    Code: 0,
+                    Data: [entry],
+                    Message: '成功'
+                });
+            }
+        });
+    });
+
     // Cteate
     app.post('/addEntry', (req, res) => {
         const entry = new Entry({

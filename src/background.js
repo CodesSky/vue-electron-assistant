@@ -38,6 +38,7 @@ function createWindow() {
         minWidth: 870, // 窗体最小高度
         frame: true,
         transparent: false,
+        titleBarStyle: 'hidden',
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true

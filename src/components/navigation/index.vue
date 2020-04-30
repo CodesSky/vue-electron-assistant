@@ -3,7 +3,20 @@
 	<div class="navigation-container">
 		<div class="navigation-topbar">
 			<h3 class="title">传送门</h3>
-			<div class="module"></div>
+			<div class="module">
+				<el-row :gutter="20">
+					<el-col :span="8">
+						<el-select style="width: 100%;" v-model="searchId" @clear="handleClear" clearable filterable  placeholder="请选择">
+						  <el-option v-for="entry in entryList" :key="entry._id" :label="entry.websiteName" :value="entry._id"></el-option>
+						</el-select>
+					</el-col>
+					<el-col :span="2">
+						<el-button type="primary" @click="handleSearch" round>查 找</el-button>
+					</el-col>
+					<el-col :span="14"></el-col>
+				</el-row>
+
+			</div>
 			<el-button
 				type="text"
 				icon="el-icon-setting"
@@ -109,11 +122,18 @@
 											icon="el-icon-edit"
 											@click="handleEdit(element._id, index)"
 										></el-button>
-										<el-button
-											type="text"
-											icon="el-icon-delete"
-											@click="handleDelete(element._id)"
-										></el-button>
+										<el-popconfirm
+											title="确认删除?"
+											confirmButtonText='是'
+  											cancelButtonText='否'
+											@onConfirm="handleDelete(element._id)"
+										>
+											<el-button
+												slot="reference"
+												type="text"
+												icon="el-icon-delete"
+											></el-button>
+										</el-popconfirm>
 										<el-button
 											type="text"
 											:icon="`${element.visible ? 'el-icon-open' : 'el-icon-turn-off'}`"
@@ -143,6 +163,7 @@ export default {
         return {
             drawer: false,
             innerDrawer: false,
+            searchId: '',
             entryList: [],
             innerDrawerTitle: '',
             currIndex: -1,
@@ -158,6 +179,18 @@ export default {
         this.getEntryList();
     },
     methods: {
+        handleSearch() {
+            if (this.searchId) {
+                this.$axios.get(`http://localhost:3000/searchEntry/${this.searchId}`).then(res => {
+                    if (res.data.Code === 0) {
+                        this.entryList = res.data.Data;
+                    }
+                });
+            }
+        },
+        handleClear() {
+            this.getEntryList();
+        },
         getEntryList() {
             this.$axios.get('http://localhost:3000/entrylist').then(res => {
                 if (res.data.Code === 0) {
@@ -239,33 +272,15 @@ export default {
             };
         },
         handleDelete(id) {
-            this.$confirm(
-                `此操作将永删除该配置项, 是否继续?`,
-                '提示',
-                {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning',
-                    center: true
+            this.$axios.post('http://localhost:3000/deleteEntry', {
+                id: id
+            }).then(res => {
+                if (res.data.Code === 0) {
+                    this.$message.success('删除成功');
+                    this.innerDrawer = false;
+                    this.getEntryList();
                 }
-            )
-                .then(() => {
-                    this.$axios.post('http://localhost:3000/deleteEntry', {
-                        id: id
-                    }).then(res => {
-                        if (res.data.Code === 0) {
-                            this.$message.success('删除成功');
-                            this.innerDrawer = false;
-                            this.getEntryList();
-                        }
-                    });
-                })
-                .catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
+            });
         }
     }
 };
@@ -276,6 +291,9 @@ export default {
 	/deep/ .el-drawer__header {
 		margin-bottom: 10px;
 		padding: 10px 20px 0;
+	}
+	/deep/ .el-input__inner {
+		border-radius: 20px;
 	}
 	/deep/ .el-drawer__body {
 		overflow-y: auto;
