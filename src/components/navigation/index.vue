@@ -36,39 +36,49 @@
                 type="primary"
                 round
 				icon="el-icon-plus"
-                @click="innerDrawer = true"
+                @click="handleAdd"
                 >添加</el-button>
-				<el-drawer
-					title="添加"
-					:append-to-body="true"
-					:wrapperClosable="false"
-					:visible.sync="innerDrawer">
-						<el-form :model="baseItem" ref="baseItem" size="mini" style="width:300px;" label-width="60px">
+
+		</div>
+		<el-drawer
+			:title="innerDrawerTitle"
+			size="320px"
+			direction="rtl"
+			:show-close="false"
+			:append-to-body="true"
+			:withHeader="true"
+			:wrapperClosable="false"
+			:visible.sync="innerDrawer">
+					<div slot="title">
+						<el-page-header @back="handleInnerBack" content="添加便签">
+					</el-page-header>
+					</div>
+						<el-form :model="baseItem" ref="baseItem" style="padding-right:10px;" label-width="10px">
 							<el-form-item
-								label="简称"
+								label=""
 								prop="websiteName"
 								:rules="[
 									{ required: true, message: '名称必填'},
 								]"
 							>
-								<el-input type="text" v-model.trim="baseItem.websiteName" style="margin-right: 20px;" autocomplete="off"></el-input>
+								<el-input type="text" v-model.trim="baseItem.websiteName" style="margin-right: 20px;" placeholder="简称" autocomplete="off"></el-input>
 							</el-form-item>
 							<el-form-item
-								label="URL"
+								label=""
 								prop="websiteUrl"
 								:rules="[
 									{ required: true, message: 'URL必填'},
 								]"
 							>
-								<el-input type="age" v-model.trim="baseItem.websiteUrl" autocomplete="off"></el-input>
+								<el-input type="age" v-model.trim="baseItem.websiteUrl" placeholder="有效的URL" autocomplete="off"></el-input>
 							</el-form-item>
 							<el-form-item>
-								<el-button type="primary" @click="submitForm('baseItem')">提交</el-button>
+								<el-button type="primary" v-if="innerDrawerTitle === '添加便签'" @click="submitForm('baseItem')">保存</el-button>
+								<el-button type="primary" v-if="innerDrawerTitle === '编辑便签'" @click="editForm('baseItem')">保存</el-button>
 								<el-button @click="resetForm('baseItem')">取消</el-button>
 							</el-form-item>
 						</el-form>
 				</el-drawer>
-		</div>
 			<div class="config-part">
 				<el-form>
 					<el-form-item label="" label-width="120">
@@ -94,61 +104,15 @@
 
 									</el-col>
 									<el-col :span="4">
-										<el-popover
-											placement="right"
-											width="400"
-											trigger="click"
-										>
-											<el-input
-												v-model="element.websiteName"
-												:disabled="!element.editable"
-												placeholder="请填写名称"
-											>
-												<template slot="prepend">
-													<el-button
-														type="primary"
-														plain
-														@click="
-															element.editable = !element.editable
-														"
-														>{{
-															element.editable
-																? "保存"
-																: "编辑"
-														}}</el-button
-													>
-												</template>
-											</el-input>
-											<el-input
-												v-model="element.websiteUrl"
-												:disabled="!element.editable"
-												placeholder="请填写跳转链接"
-											>
-												<template slot="prepend">
-													<el-button
-														type="primary"
-														plain
-														@click="
-															element.editable = !element.editable
-														"
-														>{{
-															element.editable
-																? "保存"
-																: "编辑"
-														}}</el-button
-													>
-												</template>
-											</el-input>
-											<el-button
-												slot="reference"
-												type="text"
-												icon="el-icon-edit"
-											></el-button>
-										</el-popover>
+										<el-button
+											type="text"
+											icon="el-icon-edit"
+											@click="handleEdit(element._id, index)"
+										></el-button>
 										<el-button
 											type="text"
 											icon="el-icon-delete"
-											@click="handleDelete(index)"
+											@click="handleDelete(element._id)"
 										></el-button>
 										<el-button
 											type="text"
@@ -180,6 +144,8 @@ export default {
             drawer: false,
             innerDrawer: false,
             entryList: [],
+            innerDrawerTitle: '',
+            currIndex: -1,
             baseItem: {
                 websiteName: '',
                 websiteUrl: '',
@@ -193,7 +159,7 @@ export default {
     },
     methods: {
         getEntryList() {
-            this.$axios.get('http://localhost:3000/entry').then(res => {
+            this.$axios.get('http://localhost:3000/entrylist').then(res => {
                 if (res.data.Code === 0) {
                     this.entryList = res.data.Data;
                 }
@@ -212,22 +178,69 @@ export default {
                 }
             });
         },
+        editForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.handleEditShortcut();
+                } else {
+                    return false;
+                }
+            });
+        },
         handleSwitch(index) {
             this.entryList[index].visible = !this.entryList[index].visible;
         },
         // 添加便签
         handleAddShortcut() {
-            this.$axios.post('http://localhost:3000/entry', {
-                ...this.baseItem
+            this.$axios.post('http://localhost:3000/addEntry', {
+                websiteName: this.baseItem.websiteName,
+                websiteUrl: this.baseItem.websiteUrl,
+                visible: true,
+                editable: false
             }).then(res => {
                 this.$message.success('添加成功');
                 this.innerDrawer = false;
                 this.getEntryList();
             });
         },
-        handleDelete(index) {
+        // 编辑便签
+        handleEditShortcut() {
+            this.$axios.post('http://localhost:3000/updateEntry', {
+                id: this.baseItem._id,
+                websiteName: this.baseItem.websiteName,
+                websiteUrl: this.baseItem.websiteUrl,
+                visible: true,
+                editable: false
+            }).then(res => {
+                if (res.data.Code === 0) {
+                    this.$message.success('编辑成功');
+                    this.innerDrawer = false;
+                    this.getEntryList();
+                } else {
+                    this.$message.error(res.data.Message);
+                }
+            });
+        },
+        handleAdd() {
+            this.innerDrawerTitle = '添加便签';
+            this.innerDrawer = true;
+            this.baseItem = {};
+        },
+        handleInnerBack() {
+            this.$refs.baseItem.resetFields();
+            this.innerDrawer = false;
+        },
+        handleEdit(id, index) {
+            this.innerDrawerTitle = '编辑便签';
+            this.currIndex = index;
+            this.innerDrawer = true;
+            this.baseItem = {
+                ...this.entryList[index]
+            };
+        },
+        handleDelete(id) {
             this.$confirm(
-                `此操作将永删除该配 ${this.entryList[index].websiteName} 置项, 是否继续?`,
+                `此操作将永删除该配置项, 是否继续?`,
                 '提示',
                 {
                     confirmButtonText: '确定',
@@ -237,10 +250,14 @@ export default {
                 }
             )
                 .then(() => {
-                    this.entryList.splice(index, 1);
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
+                    this.$axios.post('http://localhost:3000/deleteEntry', {
+                        id: id
+                    }).then(res => {
+                        if (res.data.Code === 0) {
+                            this.$message.success('删除成功');
+                            this.innerDrawer = false;
+                            this.getEntryList();
+                        }
                     });
                 })
                 .catch(() => {

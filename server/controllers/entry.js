@@ -1,8 +1,8 @@
 var Entry = require('../models/Entry');
 
 module.exports.controller = (app) => {
-    //get all entry
-    app.get('/entry', (req, res) => {
+    // Read
+    app.get('/entrylist', (req, res) => {
         Entry.find({}, 'websiteName websiteUrl visible editable', function(error, entries) {
             if (error) {
                 console.log(error);
@@ -15,23 +15,8 @@ module.exports.controller = (app) => {
         });
     });
 
-    // get single user
-    app.get('/entry/:id', (req, res) => {
-        Entry.findById(req.params.id, 'websiteName websiteUrl visible editable', function(error, entry) {
-            if (error) {
-                console.log(error);
-            }
-            // res.send(entry);
-            res.send({
-                Code: 0,
-                Data: entry,
-                Message: '获取成功'
-            });
-        });
-    });
-
-    // add a new user
-    app.post('/entry', (req, res) => {
+    // Cteate
+    app.post('/addEntry', (req, res) => {
         const entry = new Entry({
             websiteName: req.body.websiteName,
             websiteUrl: req.body.websiteUrl,
@@ -43,37 +28,60 @@ module.exports.controller = (app) => {
         entry.save((error, entry) => {
             if (error) {
                 console.log(error);
-            }
-            // res.send(entry);
-            res.send({
-                Code: 0,
-                Data: entry,
-                Message: '添加成功'
-            });
-        });
-    });
-
-    // update a user
-    app.put('/entry/:id', (req, res) => {
-        Entry.findById(req.params.id, 'websiteName websiteUrl visible editable', function(error, entry) {
-            if (error) {
-                console.error(error);
-            }
-            entry.websiteName = req.body.websiteName;
-            entry.websiteUrl = req.body.websiteUrl;
-            entry.visible = req.body.visible;
-            entry.editable = req.body.editable;
-            entry.save(function(error, entry) {
-                if (error) {
-                    console.log(error);
-                }
-                // res.send(entry);
+            } else {
                 res.send({
                     Code: 0,
                     Data: entry,
+                    Message: '添加成功'
+                });
+            }
+        });
+    });
+
+    // Update
+    app.post('/updateEntry', (req, res) => {
+        const id = req.body.id;
+        const websiteName = req.body.websiteName;
+        const websiteUrl = req.body.websiteUrl;
+        const visible = req.body.visible;
+        const editable = req.body.editable;
+
+        Entry.findByIdAndUpdate(id, {
+            websiteName: websiteName,
+            websiteUrl: websiteUrl,
+            visible: visible,
+            editable: editable
+        }, function(error, entry) {
+            if (error) {
+                console.error(error);
+                res.send({
+                    Code: 10001,
+                    Data: false,
+                    Message: '更新失败'
+                });
+            } else {
+                res.send({
+                    Code: 0,
+                    Data: true,
                     Message: '更新成功'
                 });
-            });
+            }
+        });
+    });
+    // Delete
+    app.post('/deleteEntry', (req, res) => {
+        const id = req.body.id;
+
+        Entry.remove({
+            _id: id
+        }, function(error, entry) {
+            if (error) {console.error(error);} else {
+                res.send({
+                    Code: 0,
+                    Data: true,
+                    Message: '删除成功'
+                });
+            }
         });
     });
 };
