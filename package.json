@@ -8,15 +8,16 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:all": "vue-cli-service electron:build --windows --macos",
-    "build:win": "vue-cli-service electron:build --windows",
-    "build:mac": "vue-cli-service electron:build --macos",
     "build:linux": "vue-cli-service electron:build --linux",
+    "build:mac": "vue-cli-service electron:build --macos",
+    "build:win": "vue-cli-service electron:build --windows",
     "electron:serve": "vue-cli-service electron:serve"
   },
+  "main": "background.js",
   "dependencies": {
-    "core-js": "^3.6.5",
+    "core-js": "^2.6.11",
     "electron": "^8.2.3",
-    "element-ui": "2.13.1",
+    "element-ui": "^2.13.1",
     "gojs": "^2.0.16",
     "mavon-editor": "^2.9.0",
     "vue": "^2.6.11",
@@ -35,11 +36,11 @@
     "electron": "^8.2.3",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-electron-builder": "^1.4.0",
-    "vue-cli-plugin-element": "^1.0.1",
+    "vue-cli-plugin-element": "~1.0.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -65,6 +66,5 @@
     "> 1%",
     "last 2 versions"
   ],
-  "main": "background.js",
   "__npminstall_done": false
 }
